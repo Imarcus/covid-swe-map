@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+        <script src="https://unpkg.com/vue@next"></script>
+        <link rel="stylesheet" type="text/css" href="css/map.css"  />
+    </head>
+    <body>
+        <div id="app">
+            <div class="header">
+                #covid-19 cases per week per region
+            </div>
+            <div class="main-container">
+                <div class="dashboard">
+                    <span id="date-label" class="bold"></span>
+                    <input type="range" class="slider" id="date-slider" v-model="sliderValue">
+                    <div class="slider-button-wrapper">
+                        <button id="dec-week-button" @click="decWeek">
+                            <
+                        </button>
+                        <button id="inc-week-button" @click="incWeek">
+                            >
+                        </button>
+                    </div>
+                    <button class="play-button" @click="playSlider">{{ playButtonText }}</button>
+                    <table id="data-table" class="region-table">
+                        <thead>
+                            <tr>
+                                <th>Region</th>
+                                <th>#cases</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                v-for="region in casesResponse.regionCases"
+                                :key="region.regionName">
+                            <td >
+                                {{ region.regionName }}
+                            </td>
+                            <td>
+                                {{ region.casesPerWeek[sliderValue] }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="mapid"></div>
+            </div>
+        </div>
+    </body>
+    <script type="application/javascript" src="js/map.javascript"></script>
+</html>
